@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="expensetracker.expensetracker.AddExpenseController"
+      spacing="10" padding="20">
+
+    <Label text="Add New Expense" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+    <HBox spacing="10">
+        <Label text="Category:" prefWidth="100"/>
+        <TextField fx:id="categoryField" promptText="Enter category"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Amount:" prefWidth="100"/>
+        <TextField fx:id="amountField" promptText="Enter amount"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Date:" prefWidth="100"/>
+        <DatePicker fx:id="datePicker"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Description:" prefWidth="100"/>
+        <TextField fx:id="descriptionField" promptText="Enter description"/>
+    </HBox>
+
+    <Button fx:id="saveButton" text="Save Expense" onAction="#onSaveExpense" prefWidth="200"/>
+</VBox>

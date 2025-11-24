@@ -23,9 +23,8 @@ public class HelloController {
     @FXML
     private Label errorLabel;
 
-    // Called when login button is clicked
     @FXML
-    protected void onLoginButtonClick() throws SQLException {
+    protected void onLoginButtonClick() {
         String email = emailField.getText();
         String password = passwordField.getText();
 
@@ -40,24 +39,30 @@ public class HelloController {
             java.sql.ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
+                int userId = rs.getInt("id");
                 errorLabel.setText("Login successful!");
-                // Dashboard
-                try{
+
+                // Load dashboard.fxml
+                try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
                     Parent root = loader.load();
+
+                    // Pass userId to DashboardController
+                    DashboardController controller = loader.getController();
+                    controller.setUserId(userId);
+
                     Stage stage = (Stage) emailField.getScene().getWindow();
                     stage.setScene(new Scene(root));
                 } catch (IOException e) {
                     e.printStackTrace();
+                    errorLabel.setText("Failed to load dashboard!");
                 }
-                }
-            }
-            else {
+
+            } else {
                 errorLabel.setText("Invalid credentials!");
             }
 
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             errorLabel.setText("Database error!");
         }
