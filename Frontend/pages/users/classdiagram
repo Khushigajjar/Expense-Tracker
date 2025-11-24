@@ -1,0 +1,33 @@
+usecaseDiagram
+    actor "User" as U
+
+    package "Expense Tracker Web App" {
+        usecase "Register / Login" as UC1
+        usecase "Manage Profile" as UC2
+
+        usecase "Manage Expenses" as UC3
+        usecase "Add Expense" as UC3a
+        usecase "Edit/Delete Expense" as UC3b
+
+        usecase "Manage Categories" as UC4
+        usecase "View Dashboard/Reports" as UC5
+        usecase "Set Monthly Budget" as UC6
+        usecase "Export Data (PDF/CSV)" as UC7
+    }
+
+    U --> UC1
+    U --> UC2
+    U --> UC3
+    U --> UC4
+    U --> UC5
+    U --> UC6
+
+    %% Relationships
+    UC3 <.. UC3a : <<include>>
+    UC3 <.. UC3b : <<include>>
+    UC5 <.. UC7 : <<extend>>
+
+    note right of UC5
+        Includes filtering by
+        date range or category
+    end note
