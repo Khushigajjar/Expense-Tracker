@@ -48,32 +48,22 @@ public class HelloController {
                     System.out.println("Login successful! User ID: " + userId);
                     errorLabel.setText("Login successful!");
 
-                    // Load dashboard.fxml
                     try {
-
-                        System.out.println(getClass().getResource("/expensetracker/expensetracker/dashboard.fxml"));
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource("/expensetracker/expensetracker/dashboard.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
                         Parent root = loader.load();
-                        DashboardController controller = loader.getController();
-                        controller.setUserId(userId);
-                        Stage stage = (Stage) emailField.getScene().getWindow();
-                        stage.setScene(new Scene(root));
-                        System.out.println("dashboard.fxml loaded successfully.");
 
-                        // Pass userId to DashboardController
                         DashboardController dashboardController = loader.getController();
                         dashboardController.setUserId(userId);
+                        Stage stage = (Stage) emailField.getScene().getWindow();
+                        stage.setScene(new Scene(root));
+                        stage.show();
 
-
-
-                        System.out.println("User ID passed to DashboardController: " + userId);
-
-
+                        System.out.println("Switched to Dashboard.");
 
                     } catch (IOException e) {
                         e.printStackTrace();
-                        errorLabel.setText("Failed to load dashboard!");
+                        errorLabel.setText("Error loading dashboard file.");
+                        System.out.println("Check if 'dashboard.fxml' is in the correct folder: " + getClass().getResource("dashboard.fxml"));
                     }
 
                 } else {
@@ -88,4 +78,25 @@ public class HelloController {
             errorLabel.setText("Database error!");
         }
     }
+
+    @FXML
+    protected void onAddExpenseButtonClick() {
+        System.out.println("Add Expense button clicked!"); // debug
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("add_expense.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) errorLabel.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            System.out.println("Switched to Add Expense screen.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            errorLabel.setText("Error loading Add Expense screen.");
+        }
+    }
+
+
 }
+

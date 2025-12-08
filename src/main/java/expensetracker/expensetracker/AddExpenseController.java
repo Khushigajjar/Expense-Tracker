@@ -25,7 +25,7 @@ public class AddExpenseController {
     @FXML
     private Button saveButton;
 
-    private int userId;
+    private int userId=1;
 
     public void setUserId(int userId) {
         this.userId = userId;
@@ -64,8 +64,6 @@ public class AddExpenseController {
             stmt.setString(5, description);
 
             stmt.executeUpdate();
-
-            // Close window after saving
             saveButton.getScene().getWindow().hide();
 
         } catch (Exception e) {

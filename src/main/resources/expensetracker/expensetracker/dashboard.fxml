@@ -3,12 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="expensetracker.expensetracker.DashboardController">
 
     <!-- Top bar -->
     <top>
-        <HBox spacing="10" padding="10">
+        <HBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
             <Label text="Expense Tracker Dashboard" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
             <Region HBox.hgrow="ALWAYS"/>
             <Button text="Add Expense" onAction="#onAddExpense"/>
@@ -29,7 +32,11 @@
 
     <!-- Bottom total -->
     <bottom>
-        <HBox padding="10" spacing="10">
+        <HBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
             <Label text="Total Expenses: "/>
             <Label fx:id="totalLabel" text="0.0"/>
         </HBox>
