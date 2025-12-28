@@ -45,17 +45,20 @@ public class HelloController {
 
                 if (rs.next()) {
                     int userId = rs.getInt("id");
-                    System.out.println("Login successful! User ID: " + userId);
-                    errorLabel.setText("Login successful!");
-
+                    String userName = rs.getString("username");
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
                         Parent root = loader.load();
 
                         DashboardController dashboardController = loader.getController();
                         dashboardController.setUserId(userId);
+
+                        dashboardController.setDisplayName(userName);
+
                         Stage stage = (Stage) emailField.getScene().getWindow();
                         stage.setScene(new Scene(root));
+                        stage.setTitle("Hello, " + userName + "!");
+                        stage.centerOnScreen();
                         stage.show();
 
                         System.out.println("Switched to Dashboard.");
@@ -81,7 +84,6 @@ public class HelloController {
 
     @FXML
     protected void onAddExpenseButtonClick() {
-        System.out.println("Add Expense button clicked!"); // debug
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("add_expense.fxml"));
             Parent root = loader.load();
@@ -89,11 +91,22 @@ public class HelloController {
             Stage stage = (Stage) errorLabel.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-
-            System.out.println("Switched to Add Expense screen.");
         } catch (IOException e) {
             e.printStackTrace();
             errorLabel.setText("Error loading Add Expense screen.");
+        }
+    }
+
+
+    @FXML
+    protected void onRegisterClick() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("register.fxml"));
+            Stage stage = (Stage) emailField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Register - Expense Tracker");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

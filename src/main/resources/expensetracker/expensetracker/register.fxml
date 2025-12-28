@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane prefHeight="450.0" prefWidth="400.0" stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml" fx:controller="expensetracker.expensetracker.RegisterController">
+    <VBox alignment="CENTER" spacing="15" maxWidth="320" maxHeight="400" styleClass="login-container">
+
+        <Label styleClass="login-title" text="Create Account" style="-fx-font-size: 22px;"/>
+
+        <TextField fx:id="usernameField" promptText="Username" />
+        <TextField fx:id="emailField" promptText="Email" />
+        <PasswordField fx:id="passwordField" promptText="Password" />
+        <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" />
+
+        <Button onAction="#onRegisterClick" text="Register" styleClass="btn-add" maxWidth="Infinity" />
+        <Button onAction="#onBackToLogin" text="Back to Login" styleClass="btn-secondary" maxWidth="Infinity" />
+
+        <Label fx:id="statusLabel" wrapText="true" textFill="red" />
+    </VBox>
+</StackPane>

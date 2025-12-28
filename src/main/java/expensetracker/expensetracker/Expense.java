@@ -16,7 +16,6 @@ public class Expense {
         this.description = description;
     }
 
-    // Getters and setters
     public int getId() { return id; }
     public String getCategory() { return category; }
     public double getAmount() { return amount; }

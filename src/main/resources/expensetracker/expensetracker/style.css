@@ -1,0 +1,150 @@
+.root {
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-background-color: #f8f9fa;
+}
+
+.header-label {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.button {
+    -fx-cursor: hand;
+    -fx-padding: 8 15;
+    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.btn-add { -fx-background-color: #2ecc71; }
+.btn-add:hover { -fx-background-color: #27ae60; }
+
+.btn-income { -fx-background-color: #3498db; }
+.btn-income:hover { -fx-background-color: #2980b9; }
+
+.btn-logout { -fx-background-color: #e74c3c; }
+.btn-logout:hover { -fx-background-color: #c0392b; }
+
+.summary-label {
+    -fx-font-size: 15px;
+    -fx-padding: 10;
+}
+
+.income-text { -fx-text-fill: #27ae60; -fx-font-weight: bold; }
+.expense-text { -fx-text-fill: #e74c3c; -fx-font-weight: bold; }
+.balance-text { -fx-font-size: 18px; -fx-font-weight: bold; }
+
+.chart-title {
+    -fx-text-fill: #34495e;
+    -fx-font-size: 16px;
+}
+
+.chart-content {
+    -fx-padding: 10;
+}
+
+.login-container {
+    -fx-background-color: white;
+    -fx-padding: 30;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
+}
+
+.text-field, .password-field {
+    -fx-background-color: #f1f3f5;
+    -fx-background-radius: 5;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 5;
+    -fx-padding: 10;
+    -fx-font-size: 13px;
+    -fx-transition: all 0.3s;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(three-pass-box, rgba(52, 152, 219, 0.2), 5, 0, 0, 0);
+}
+
+.btn-login {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.btn-login:hover {
+    -fx-background-color: #2980b9;
+}
+
+.btn-secondary {
+    -fx-background-color: transparent;
+    -fx-text-fill: #7f8c8d;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 5;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #ecf0f1;
+}
+
+.login-title {
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0 0 10 0;
+}
+
+.form-container {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+}
+
+.form-header {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0 0 10 0;
+}
+
+.form-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #34495e;
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+}
+
+.date-picker {
+    -fx-background-color: transparent;
+}
+
+.date-picker .text-field {
+    -fx-background-radius: 5 0 0 5;
+}
+
+.date-picker .button {
+    -fx-background-color: #3498db;
+    -fx-background-radius: 0 5 5 0;
+    -fx-cursor: hand;
+}
+
+.date-picker .button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.btn-save {
+    -fx-background-color: #2ecc71;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.btn-save:hover {
+    -fx-background-color: #27ae60;
+}
