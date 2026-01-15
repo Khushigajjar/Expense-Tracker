@@ -29,6 +29,8 @@
 
             <Button text="Export Report (CSV)" onAction="#onExportCSV" styleClass="btn-income" maxWidth="Infinity"/>
 
+            <Button text="Split Bill" onAction="#onSplitExpense" styleClass="btn-income" maxWidth="Infinity"/>
+
             <VBox spacing="5" styleClass="card" style="-fx-padding: 15;">
                 <HBox spacing="10">
                     <Label text="Monthly Budget" styleClass="section-title" style="-fx-font-size: 12px;"/>
@@ -70,7 +72,7 @@
                           HBox.hgrow="ALWAYS" styleClass="chart"/>
                 <LineChart fx:id="weeklyExpenseLineChart" title="Weekly Activity"
                            HBox.hgrow="ALWAYS" styleClass="chart">
-                    <xAxis><CategoryAxis label="Week"/></xAxis>
+                    <xAxis><CategoryAxis label="Date"/></xAxis>
                     <yAxis><NumberAxis label="€"/></yAxis>
                 </LineChart>
             </HBox>

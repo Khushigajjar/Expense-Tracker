@@ -98,4 +98,8 @@ public class AddExpenseController {
         descriptionField.setText(expense.getDescription());
         datePicker.setValue(java.time.LocalDate.parse(expense.getDate()));
     }
+
+    public void setAmount(double amount) {
+        amountField.setText(String.format("%.2f", amount));
+    }
 }
