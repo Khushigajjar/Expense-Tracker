@@ -1,0 +1,30 @@
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<VBox spacing="15" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="expensetracker.expensetracker.AddRecurringController"
+      styleClass="login-container" prefWidth="350">
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <Label text="Add Subscription/Recurring" styleClass="header-label" style="-fx-font-size: 18px;"/>
+
+    <TextField fx:id="descField" promptText="Description (e.g. Netflix)"/>
+    <TextField fx:id="amountField" promptText="Monthly Amount (€)"/>
+
+    <ComboBox fx:id="categoryComboBox" promptText="Select Category" maxWidth="Infinity"/>
+
+    <VBox spacing="5">
+        <Label text="Day of month to bill:" style="-fx-font-size: 12px;"/>
+        <Spinner fx:id="daySpinner" editable="true" maxWidth="Infinity"/>
+    </VBox>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancel" onAction="#onCancel" styleClass="btn-secondary"/>
+        <Button text="Save Recurring" onAction="#onSave" styleClass="btn-add"/>
+    </HBox>
+</VBox>

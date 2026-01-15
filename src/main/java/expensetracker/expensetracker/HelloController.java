@@ -27,53 +27,55 @@ public class HelloController {
         String email = emailField.getText().trim();
         String password = passwordField.getText().trim();
 
-        System.out.println("Attempting login with email: " + email + ", password: " + password);
-
         String query = "SELECT * FROM users WHERE email = ? AND password = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection()) {
+        try (Connection conn = DatabaseConnection.getConnection();
+             java.sql.PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            System.out.println("Database connection established: " + (conn != null));
+            stmt.setString(1, email);
+            stmt.setString(2, password);
 
-            try (java.sql.PreparedStatement stmt = conn.prepareStatement(query)) {
-                stmt.setString(1, email);
-                stmt.setString(2, password);
+            java.sql.ResultSet rs = stmt.executeQuery();
 
-                System.out.println("PreparedStatement created, executing query...");
+            if (rs.next()) {
+                int userId = rs.getInt("id");
+                String userName = rs.getString("username");
 
-                java.sql.ResultSet rs = stmt.executeQuery();
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+                    Parent root = loader.load();
 
-                if (rs.next()) {
-                    int userId = rs.getInt("id");
-                    String userName = rs.getString("username");
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
-                        Parent root = loader.load();
+                    // 1. Pass data to the controller
+                    DashboardController dashboardController = loader.getController();
+                    dashboardController.setUserId(userId);
+                    dashboardController.setDisplayName(userName);
 
-                        DashboardController dashboardController = loader.getController();
-                        dashboardController.setUserId(userId);
+                    // 2. Get the current Stage (Window)
+                    Stage stage = (Stage) emailField.getScene().getWindow();
 
-                        dashboardController.setDisplayName(userName);
+                    // 3. Create the scene with preferred dimensions (acts as a minimum)
+                    Scene scene = new Scene(root, 1200, 800);
 
-                        Stage stage = (Stage) emailField.getScene().getWindow();
-                        stage.setScene(new Scene(root));
-                        stage.setTitle("Hello, " + userName + "!");
-                        stage.centerOnScreen();
-                        stage.show();
+                    // 4. Update Stage properties
+                    stage.setTitle("Expense Tracker - " + userName);
+                    stage.setScene(scene);
 
-                        System.out.println("Switched to Dashboard.");
+                    // Ensure the window is allowed to grow
+                    stage.setResizable(true);
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        errorLabel.setText("Error loading dashboard file.");
-                        System.out.println("Check if 'dashboard.fxml' is in the correct folder: " + getClass().getResource("dashboard.fxml"));
-                    }
+                    // Force maximize to fill the screen
+                    stage.setMaximized(true);
 
-                } else {
-                    System.out.println("No matching user found for email/password.");
-                    errorLabel.setText("Invalid credentials!");
+                    // Final reveal
+                    stage.show();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    errorLabel.setText("Error loading dashboard file.");
                 }
 
+            } else {
+                errorLabel.setText("Invalid credentials!");
             }
 
         } catch (Exception e) {
@@ -112,4 +114,3 @@ public class HelloController {
 
 
 }
-

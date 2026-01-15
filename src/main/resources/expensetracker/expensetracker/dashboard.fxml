@@ -4,67 +4,119 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.PieChart?>
-<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.LineChart?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="expensetracker.expensetracker.DashboardController" stylesheets="@style.css">
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="expensetracker.expensetracker.DashboardController"
+            stylesheets="@style.css">
 
-    <top>
-        <VBox spacing="5">
+    <left>
+        <VBox spacing="20" styleClass="sidebar-container" prefWidth="250">
             <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets top="30" right="15" bottom="30" left="15"/>
             </padding>
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label text="Expense Tracker" styleClass="header-label"/>
-                <Region HBox.hgrow="ALWAYS"/>
-                <Label fx:id="welcomeLabel" text="Hello!" style="-fx-font-size: 14px;"/>
-                <Button text="Update Income" onAction="#onUpdateIncome" styleClass="btn-income"/>
-                <Button text="+ Add Expense" onAction="#onAddExpense" styleClass="btn-add"/>
-                <Button text="Logout" onAction="#onLogout" styleClass="btn-logout"/>
-            </HBox>
-            <Separator/>
+
+            <Label text="ExpenseTracker" styleClass="header-label"/>
+
+            <Separator opacity="0.4"/>
+
+            <Button text="Update Income" onAction="#onUpdateIncome" styleClass="btn-income" maxWidth="Infinity"/>
+            <Button text="+ Add Expense" onAction="#onAddExpense" styleClass="btn-add" maxWidth="Infinity"/>
+
+            <Button text="Manage Recurring" onAction="#onAddRecurring" styleClass="btn-income" maxWidth="Infinity"/>
+
+            <Button text="Export Report (CSV)" onAction="#onExportCSV" styleClass="btn-income" maxWidth="Infinity"/>
+
+            <VBox spacing="5" styleClass="card" style="-fx-padding: 15;">
+                <HBox spacing="10">
+                    <Label text="Monthly Budget" styleClass="section-title" style="-fx-font-size: 12px;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="percentLabel" text="0%" style="-fx-font-weight: bold; -fx-text-fill: #3f51b5;"/>
+                </HBox>
+                <ProgressBar fx:id="budgetProgressBar" progress="0.0" maxWidth="Infinity" />
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <VBox fx:id="savingsGoalCard"
+                  spacing="10"
+                  onMouseClicked="#handleGoalClick"
+                  styleClass="card"
+                  style="-fx-background-color: #e8eaf6; -fx-padding: 15; -fx-cursor: hand;">
+
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label fx:id="goalNameLabel" text="Savings Goal: New Laptop"
+                           style="-fx-font-weight: bold; -fx-text-fill: #3f51b5; -fx-font-size: 12px;"/>
+                </HBox>
+
+                <ProgressBar fx:id="savingsProgressBar" progress="0.0" maxWidth="Infinity" />
+                <Label fx:id="savingsLabel" text="€0 / €1,200" style="-fx-font-size: 11px;"/>
+            </VBox>
+
+            <Button text="Logout" onAction="#onLogout" styleClass="btn-logout" maxWidth="Infinity"/>
         </VBox>
-    </top>
+    </left>
 
     <center>
-        <VBox spacing="15">
+        <VBox spacing="20">
             <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets top="25" right="25" bottom="25" left="25"/>
             </padding>
 
-            <HBox spacing="15" prefHeight="400">
-                <PieChart fx:id="categoryPieChart" title="Spending Breakdown" HBox.hgrow="ALWAYS" />
-                <BarChart fx:id="incomeExpenseBarChart" title="Income vs Expenses" HBox.hgrow="ALWAYS">
-                    <xAxis><CategoryAxis label="Type" /></xAxis>
-                    <yAxis><NumberAxis label="Amount (€)" /></yAxis>
-                </BarChart>
+            <HBox spacing="20" VBox.vgrow="SOMETIMES" minHeight="300">
+                <PieChart fx:id="categoryPieChart" title="Spending Breakdown"
+                          HBox.hgrow="ALWAYS" styleClass="chart"/>
+                <LineChart fx:id="weeklyExpenseLineChart" title="Weekly Activity"
+                           HBox.hgrow="ALWAYS" styleClass="chart">
+                    <xAxis><CategoryAxis label="Week"/></xAxis>
+                    <yAxis><NumberAxis label="€"/></yAxis>
+                </LineChart>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="searchField" promptText="Search expenses..." prefWidth="300"
+                           styleClass="text-field"/>
+                <Label text="🔍" style="-fx-text-fill: #3f51b5;"/>
             </HBox>
 
             <TableView fx:id="expenseTable" VBox.vgrow="ALWAYS">
                 <columnResizePolicy>
-                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                 </columnResizePolicy>
                 <columns>
                     <TableColumn fx:id="dateColumn" text="Date" prefWidth="100"/>
                     <TableColumn fx:id="categoryColumn" text="Category" prefWidth="150"/>
                     <TableColumn fx:id="amountColumn" text="Amount" prefWidth="100"/>
-                    <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="500"/>
+                    <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="400"/>
                 </columns>
             </TableView>
         </VBox>
     </center>
 
     <bottom>
-        <HBox spacing="30" alignment="CENTER" style="-fx-background-color: #f4f4f4; -fx-border-color: #cccccc; -fx-border-width: 1 0 0 0;">
+        <HBox spacing="50" alignment="CENTER" styleClass="summary-bar">
             <padding>
-                <Insets top="15" right="20" bottom="15" left="20"/>
+                <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
 
-            <Label fx:id="incomeLabel" text="Income: €0.00" styleClass="summary-label, income-text"/>
-            <Label fx:id="totalLabel" text="Expense: €0.00" styleClass="summary-label, expense-text"/>
-            <Label fx:id="balanceLabel" text="Balance: €0.00" styleClass="summary-label, balance-text"/>
+            <VBox alignment="CENTER">
+                <Label text="TOTAL INCOME" style="-fx-font-size: 10px; -fx-text-fill: #7f8c8d;"/>
+                <Label fx:id="incomeLabel" text="€0.00" styleClass="summary-label, income-text"/>
+            </VBox>
+
+            <VBox alignment="CENTER">
+                <Label text="TOTAL EXPENSES" style="-fx-font-size: 10px; -fx-text-fill: #7f8c8d;"/>
+                <Label fx:id="totalLabel" text="€0.00" styleClass="summary-label, expense-text"/>
+            </VBox>
+
+            <Separator orientation="VERTICAL" prefHeight="30"/>
+
+            <VBox alignment="CENTER">
+                <Label text="CURRENT BALANCE" style="-fx-font-size: 10px; -fx-text-fill: #7f8c8d;"/>
+                <Label fx:id="balanceLabel" text="€0.00" styleClass="summary-label, balance-text"/>
+            </VBox>
         </HBox>
     </bottom>
-
 </BorderPane>
