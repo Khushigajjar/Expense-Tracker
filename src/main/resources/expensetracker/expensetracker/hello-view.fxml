@@ -4,26 +4,56 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<StackPane prefHeight="500.0" prefWidth="450.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="expensetracker.expensetracker.HelloController">
+<StackPane stylesheets="@style.css"
+           xmlns="http://javafx.com/javafx/21.0.6"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="expensetracker.expensetracker.HelloController">
 
-    <VBox alignment="CENTER" spacing="15" styleClass="login-container">
+    <!-- Background Layer (optional gradient / image) -->
+    <Pane styleClass="login-background"/>
 
-        <Label styleClass="login-title" text="Expense Tracker Login" style="-fx-font-size: 22px;"/>
+    <!-- CENTER CARD -->
+    <VBox alignment="CENTER"
+          spacing="15"
+          styleClass="login-container"
+          maxWidth="420"
+          minWidth="420"
+          maxHeight="360"
+          minHeight="360">
 
-        <VBox spacing="5" alignment="CENTER_LEFT">
-            <Label text="Email Address" style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d;"/>
-            <TextField fx:id="emailField" promptText="Enter your email" />
+        <Label text="Expense Tracker Login"
+               styleClass="login-title"
+               style="-fx-font-size: 22px;"/>
+
+        <VBox spacing="5">
+            <Label text="Email Address"
+                   style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d;"/>
+            <TextField fx:id="emailField"
+                       promptText="Enter your email"/>
         </VBox>
 
-        <VBox spacing="5" alignment="CENTER_LEFT">
-            <Label text="Password" style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d;"/>
-            <PasswordField fx:id="passwordField" promptText="Enter your password" />
+        <VBox spacing="5">
+            <Label text="Password"
+                   style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d;"/>
+            <PasswordField fx:id="passwordField"
+                           promptText="Enter your password"/>
         </VBox>
 
-        <Button onAction="#onLoginButtonClick" text="Login" styleClass="btn-login" maxWidth="Infinity" />
+        <Button text="Login"
+                onAction="#onLoginButtonClick"
+                styleClass="btn-login"
+                maxWidth="Infinity"/>
 
-        <Button onAction="#onRegisterClick" text="New User? Register" styleClass="btn-secondary" maxWidth="Infinity" />
+        <Button text="New User? Register"
+                onAction="#onRegisterClick"
+                styleClass="btn-secondary"
+                maxWidth="Infinity"/>
 
-        <Label fx:id="errorLabel" wrapText="true" textAlignment="CENTER" textFill="red" style="-fx-font-size: 11px;" />
+        <Label fx:id="errorLabel"
+               wrapText="true"
+               textAlignment="CENTER"
+               textFill="red"
+               style="-fx-font-size: 11px;"/>
     </VBox>
+
 </StackPane>
