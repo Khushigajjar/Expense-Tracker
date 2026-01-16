@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
-<VBox spacing="15"
-      stylesheets="@style.css"
-      styleClass="form-container"
-      xmlns="http://javafx.com/javafx/21.0.6"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="expensetracker.expensetracker.AddExpenseController">
+<VBox spacing="15" styleClass="form-container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="expensetracker.expensetracker.AddExpenseController">
 
     <padding>
-        <Insets top="25" right="25" bottom="25" left="25"/>
+        <Insets bottom="25" left="25" right="25" top="25" />
     </padding>
 
-    <Label text="Add New Expense" styleClass="form-header" />
+    <Label styleClass="form-header" text="Add New Expense" />
     <Separator />
 
     <GridPane hgap="10" vgap="15">
@@ -24,21 +19,26 @@
             <ColumnConstraints hgrow="ALWAYS" />
         </columnConstraints>
 
-        <Label text="Category:" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-        <TextField fx:id="categoryField" promptText="e.g. Food, Rent" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Label styleClass="form-label" text="Category:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="categoryField" promptText="e.g. Food, Rent" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-        <Label text="Amount (€):" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-        <TextField fx:id="amountField" promptText="0.00" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label styleClass="form-label" text="Amount (€):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="amountField" promptText="0.00" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <Label text="Date:" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <DatePicker fx:id="datePicker" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Label styleClass="form-label" text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <DatePicker fx:id="datePicker" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-        <Label text="Description:" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-        <TextField fx:id="descriptionField" promptText="Short note..." GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <Label styleClass="form-label" text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextField fx:id="descriptionField" promptText="Short note..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
     </GridPane>
 
     <Region VBox.vgrow="ALWAYS" />
 
-    <Button fx:id="saveButton" onAction="#onSaveExpense" text="Save Expense"
-            styleClass="btn-save" maxWidth="Infinity" />
+    <Button fx:id="saveButton" maxWidth="Infinity" onAction="#onSaveExpense" styleClass="btn-save" text="Save Expense" textFill="#200202" />
 </VBox>
