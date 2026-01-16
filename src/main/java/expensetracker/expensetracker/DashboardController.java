@@ -25,6 +25,7 @@ import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import javafx.collections.transformation.SortedList;
 import javafx.util.Pair;
+import java.util.Map;
 import javafx.scene.control.Tooltip;
 import javafx.util.Duration;
 import javafx.beans.binding.StringBinding;
@@ -191,12 +192,20 @@ public class DashboardController {
         balanceLabel.setText(String.format("Balance: €%.2f", income - total));
 
         updateBudgetProgress(income, total);
+
+        // Populate pie chart from category totals
         categoryPieChart.getData().clear();
-        catMap.forEach((k, v) -> categoryPieChart.getData().add(new PieChart.Data(k, v)));
+        catMap.forEach((category, amount) -> {
+            if (amount > 0) {
+                PieChart.Data data = new PieChart.Data(category, amount);
+                categoryPieChart.getData().add(data);
+            }
+        });
 
         // Install tooltips on each pie slice so the user sees the exact amount when hovering
         installPieTooltips();
 
+        // Update income/expenses bar chart if present
         if (incomeExpenseBarChart != null) {
             incomeExpenseBarChart.getData().clear();
             XYChart.Series<String, Double> series = new XYChart.Series<>();
@@ -500,36 +509,6 @@ public class DashboardController {
         });
     }
 
-
-
-    // Adds a tooltip to each PieChart.Data node showing the formatted currency value.
-    private void installPieTooltips() {
-        if (categoryPieChart == null) return;
-
-        NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
-
-        for (PieChart.Data data : categoryPieChart.getData()) {
-            // Create a tooltip and bind its text to the pie value so it updates automatically
-            Tooltip tooltip = new Tooltip();
-            StringBinding binding = new StringBinding() {
-                { bind(data.pieValueProperty()); }
-
-                @Override
-                protected String computeValue() {
-                    return nf.format(data.getPieValue());
-                }
-            };
-            tooltip.textProperty().bind(binding);
-
-            // Show tooltip quickly
-            tooltip.setShowDelay(Duration.millis(50));
-            Tooltip.install(data.getNode(), tooltip);
-
-            // Simple hover visual feedback
-            data.getNode().setOnMouseEntered(e -> data.getNode().setOpacity(0.8));
-            data.getNode().setOnMouseExited(e -> data.getNode().setOpacity(1.0));
-        }
-    }
 
 
 }
