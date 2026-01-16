@@ -8,6 +8,8 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.LineChart?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="expensetracker.expensetracker.DashboardController"
             stylesheets="@style.css">
@@ -17,8 +19,12 @@
             <padding>
                 <Insets top="30" right="15" bottom="30" left="15"/>
             </padding>
-
-            <Label text="ExpenseTracker" styleClass="header-label"/>
+            <ImageView fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@logo.png" />
+                </image>
+            </ImageView>
+<!--            <Label text="ExpenseTracker" styleClass="header-label"/>-->
 
             <Separator opacity="0.4"/>
 

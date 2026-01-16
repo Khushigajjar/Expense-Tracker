@@ -3,6 +3,7 @@ package expensetracker.expensetracker;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
 import javafx.animation.FadeTransition;
@@ -59,6 +60,7 @@ public class NavigationService {
             controller.setUserId(userId);
 
             Stage stage = new Stage();
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("logo.png")));
             Scene scene = new Scene(root);
             applyStyle(scene);
 

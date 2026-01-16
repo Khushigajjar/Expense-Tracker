@@ -9,10 +9,8 @@
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="expensetracker.expensetracker.HelloController">
 
-    <!-- Background Layer (optional gradient / image) -->
     <Pane styleClass="login-background"/>
 
-    <!-- CENTER CARD -->
     <VBox alignment="CENTER"
           spacing="15"
           styleClass="login-container"

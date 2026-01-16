@@ -63,10 +63,8 @@ public class DashboardController {
     private double currentGoalAmount = 1200.0;
 
     private void setupSearchFilter() {
-        // 1. Wrap the ObservableList in a FilteredList
         FilteredList<Expense> filteredData = new FilteredList<>(expensesList, p -> true);
 
-        // 2. Set the filter Predicate whenever the filter changes.
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(expense -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -83,11 +81,9 @@ public class DashboardController {
             });
         });
 
-        // 3. Wrap the FilteredList in a SortedList so users can still sort columns
         SortedList<Expense> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(expenseTable.comparatorProperty());
 
-        // 4. Add sorted (and filtered) data to the table.
         expenseTable.setItems(sortedData);
     }
 
@@ -164,7 +160,6 @@ public class DashboardController {
                 PieChart.Data data = new PieChart.Data(category, amount);
                 categoryPieChart.getData().add(data);
 
-                // Add Hover Tooltip Listener
                 data.nodeProperty().addListener((obs, oldNode, newNode) -> {
                     if (newNode != null) {
                         Tooltip t = new Tooltip(String.format("%s: €%.2f", data.getName(), data.getPieValue()));
@@ -337,7 +332,6 @@ public class DashboardController {
                 // Update the UI labels
                 goalNameLabel.setText("Savings Goal: " + currentGoalName);
 
-                // Refresh calculations
                 loadExpenses();
 
             } catch (NumberFormatException e) {
@@ -353,13 +347,11 @@ public class DashboardController {
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Split Bill Calculator");
 
-        // Apply the Indigo CSS to the DialogPane
         DialogPane dialogPane = dialog.getDialogPane();
         String css = getClass().getResource("style.css").toExternalForm();
         dialogPane.getStylesheets().add(css);
         dialogPane.getStyleClass().add("custom-dialog");
 
-        // Indigo Header Look
         dialog.setHeaderText("Divide your expenses easily");
 
         GridPane grid = new GridPane();
