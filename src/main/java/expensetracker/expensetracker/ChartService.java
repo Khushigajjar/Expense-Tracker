@@ -28,7 +28,7 @@ public class ChartService {
         series.setName("Daily Expenses");
 
         String sql = "SELECT date, SUM(amount) AS total FROM expenses " +
-                "WHERE user_id = ? AND date >= DATE_SUB(CURDATE(), INTERVAL 14 DAY) " +
+                "WHERE user_id = ? AND date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY) " +
                 "GROUP BY date ORDER BY date ASC";
 
         try (Connection con = DatabaseConnection.getConnection();

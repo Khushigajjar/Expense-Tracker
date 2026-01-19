@@ -45,28 +45,21 @@ public class HelloController {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
                     Parent root = loader.load();
 
-                    // 1. Pass data to the controller
                     DashboardController dashboardController = loader.getController();
                     dashboardController.setUserId(userId);
                     dashboardController.setDisplayName(userName);
 
-                    // 2. Get the current Stage (Window)
                     Stage stage = (Stage) emailField.getScene().getWindow();
 
-                    // 3. Create the scene with preferred dimensions (acts as a minimum)
                     Scene scene = new Scene(root, 1200, 800);
 
-                    // 4. Update Stage properties
                     stage.setTitle("Expense Tracker - " + userName);
                     stage.setScene(scene);
 
-                    // Ensure the window is allowed to grow
                     stage.setResizable(true);
 
-                    // Force maximize to fill the screen
                     stage.setMaximized(true);
 
-                    // Final reveal
                     stage.show();
 
                 } catch (IOException e) {
@@ -81,21 +74,6 @@ public class HelloController {
         } catch (Exception e) {
             e.printStackTrace();
             errorLabel.setText("Database error!");
-        }
-    }
-
-    @FXML
-    protected void onAddExpenseButtonClick() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("add_expense.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) errorLabel.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            errorLabel.setText("Error loading Add Expense screen.");
         }
     }
 

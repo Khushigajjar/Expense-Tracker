@@ -38,7 +38,7 @@ public class AddRecurringController {
             stmt.setInt(5, daySpinner.getValue());
 
             stmt.executeUpdate();
-            onCancel(); // Close window
+            onCancel();
         } catch (Exception e) { e.printStackTrace(); }
     }
 

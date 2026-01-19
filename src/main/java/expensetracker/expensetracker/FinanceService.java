@@ -39,7 +39,6 @@ public class FinanceService {
 
     public void processRecurringExpenses(int userId) {
         LocalDate today = LocalDate.now();
-        // Logic to find expenses not yet processed for this month/year
         String checkSql = "SELECT * FROM recurring_expenses WHERE user_id = ? AND (last_processed IS NULL OR MONTH(last_processed) != ? OR YEAR(last_processed) != ?)";
         String insertSql = "INSERT INTO expenses (user_id, category, amount, date, description) VALUES (?, ?, ?, ?, ?)";
         String updateRecSql = "UPDATE recurring_expenses SET last_processed = ? WHERE id = ?";
@@ -56,7 +55,6 @@ public class FinanceService {
                     int billingDay = Math.min(rs.getInt("day_of_month"), today.lengthOfMonth());
                     String finalDate = today.withDayOfMonth(billingDay).toString();
 
-                    // Insert into main expenses table
                     try (PreparedStatement ins = conn.prepareStatement(insertSql)) {
                         ins.setInt(1, userId);
                         ins.setString(2, rs.getString("category"));
@@ -66,7 +64,6 @@ public class FinanceService {
                         ins.executeUpdate();
                     }
 
-                    // Mark as processed
                     try (PreparedStatement upd = conn.prepareStatement(updateRecSql)) {
                         upd.setString(1, today.toString());
                         upd.setInt(2, rs.getInt("id"));
