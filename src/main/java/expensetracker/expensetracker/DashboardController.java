@@ -34,7 +34,7 @@ import javafx.util.Pair;
 public class DashboardController {
 
     private ObservableList<Expense> expensesList = FXCollections.observableArrayList();
-    private FinanceService financeService = new FinanceService();
+    private final FinanceService financeService = new FinanceService();
     private NavigationService navService = new NavigationService();
     private int userId;
     @FXML private LineChart<String, Number> weeklyExpenseLineChart;
@@ -277,7 +277,10 @@ public class DashboardController {
 
     @FXML
     protected void onAddRecurring() {
-        navService.openAddRecurringWindow(userId, this::loadExpenses);
+        navService.openAddRecurringWindow(userId, () -> {
+            financeService.processRecurringExpenses(userId);
+            loadExpenses();
+        });
     }
 
 
