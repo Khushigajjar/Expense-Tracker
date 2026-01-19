@@ -1,6 +1,7 @@
 package expensetracker.expensetracker;
 
 import javafx.animation.FadeTransition;
+import javafx.beans.binding.StringBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -28,14 +29,19 @@ import java.time.LocalDate;
 import java.util.Map;
 
 import javafx.collections.transformation.SortedList;
-import javafx.util.Duration;
 import javafx.util.Pair;
+import javafx.scene.control.Tooltip;
+import javafx.util.Duration;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class DashboardController {
 
     private ObservableList<Expense> expensesList = FXCollections.observableArrayList();
     private final FinanceService financeService = new FinanceService();
     private NavigationService navService = new NavigationService();
+    // map to keep original category names for each pie slice (PieChart.Data doesn't support userData)
+    private java.util.Map<PieChart.Data, String> pieOriginalNames = new java.util.HashMap<>();
     private int userId;
     @FXML private LineChart<String, Number> weeklyExpenseLineChart;
     @FXML private TableView<Expense> expenseTable;
@@ -155,9 +161,13 @@ public class DashboardController {
         updateBudgetProgress(income, total);
 
         categoryPieChart.getData().clear();
+        // clear any stored original names
+        pieOriginalNames.clear();
         catMap.forEach((category, amount) -> {
             if (amount > 0) {
                 PieChart.Data data = new PieChart.Data(category, amount);
+                // store original category name (we will later overwrite data.name with amount+percent)
+                pieOriginalNames.put(data, category);
                 categoryPieChart.getData().add(data);
 
                 data.nodeProperty().addListener((obs, oldNode, newNode) -> {
@@ -169,9 +179,56 @@ public class DashboardController {
             }
         });
 
+        // Compute total and append percentage+amount to each slice's name
+        double totalForPercent = categoryPieChart.getData().stream().mapToDouble(PieChart.Data::getPieValue).sum();
+        java.text.NumberFormat nf = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.getDefault());
+        for (PieChart.Data d : categoryPieChart.getData()) {
+            double pct = (totalForPercent > 0) ? (d.getPieValue() / totalForPercent) * 100.0 : 0.0;
+            String cat = pieOriginalNames.getOrDefault(d, d.getName());
+            d.setName(String.format("%s: %s (%.1f%%)", cat, nf.format(d.getPieValue()), pct));
+        }
+
+        // Install tooltips showing amount and percentage
+        installPieTooltips();
+
         updateSavingsGoal(income, total);
     }
 
+
+    // Adds a tooltip to each PieChart.Data node showing the formatted currency value and percentage.
+    private void installPieTooltips() {
+        if (categoryPieChart == null) return;
+
+        java.text.NumberFormat nf = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.getDefault());
+
+        for (PieChart.Data data : categoryPieChart.getData()) {
+            javafx.scene.control.Tooltip tooltip = new javafx.scene.control.Tooltip();
+
+            javafx.beans.binding.StringBinding binding = new javafx.beans.binding.StringBinding() {
+                {
+                    for (PieChart.Data d : categoryPieChart.getData()) {
+                        bind(d.pieValueProperty());
+                    }
+                }
+
+                @Override
+                protected String computeValue() {
+                    double total = 0.0;
+                    for (PieChart.Data d : categoryPieChart.getData()) total += d.getPieValue();
+                    double percent = (total > 0) ? (data.getPieValue() / total) * 100.0 : 0.0;
+                    String cat = pieOriginalNames.getOrDefault(data, data.getName());
+                    return String.format("%s: %s (%.1f%%)", cat, nf.format(data.getPieValue()), percent);
+                }
+            };
+
+            tooltip.textProperty().bind(binding);
+            tooltip.setShowDelay(javafx.util.Duration.millis(50));
+            javafx.scene.control.Tooltip.install(data.getNode(), tooltip);
+
+            data.getNode().setOnMouseEntered(e -> data.getNode().setOpacity(0.8));
+            data.getNode().setOnMouseExited(e -> data.getNode().setOpacity(1.0));
+        }
+    }
 
     private void updateBudgetProgress(double income, double totalExpenses) {
         double ratio = financeService.getBudgetRatio(totalExpenses, income);
