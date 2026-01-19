@@ -77,21 +77,6 @@ public class HelloController {
         }
     }
 
-    @FXML
-    protected void onAddExpenseButtonClick() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("add_expense.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) errorLabel.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            errorLabel.setText("Error loading Add Expense screen.");
-        }
-    }
-
 
     @FXML
     protected void onRegisterClick() {
