@@ -41,7 +41,7 @@ Whether you're budgeting for the month or just trying to cut back on unnecessary
 
 > **Add / Edit Expense**
 > 
-> ![Add Expense](screenshots/add-expense.png)   
+> ![Add Expense](screenshots/Add-expense.png)   
 > *Simple form to log a new expense with category and date*
 > *Manage subscriptions and recurring monthly payments*
 
