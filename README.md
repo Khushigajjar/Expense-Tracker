@@ -27,7 +27,7 @@ Whether you're budgeting for the month or just trying to cut back on unnecessary
 
 > **Dashboard Overview**
 > 
-> ![Dashboard](screenshots\dashbord.png)
+> ![Dashboard](screenshots/dashboard.png)
 > *Main dashboard showing monthly summary and recent transactions*
 
 ---
@@ -41,21 +41,8 @@ Whether you're budgeting for the month or just trying to cut back on unnecessary
 
 > **Add / Edit Expense**
 > 
-> ![Add Expense](screenshots/add-expense.png)
+> ![Add Expense](screenshots/add-expense.png)   
 > *Simple form to log a new expense with category and date*
-
----
-
-> **Savings Goals**
-> 
-> ![Savings Goals](screenshots/savings-goals.png)
-> *Set and track progress toward your financial goals*
-
----
-
-> **Recurring Expenses**
-> 
-> ![Recurring](screenshots/recurring.png)
 > *Manage subscriptions and recurring monthly payments*
 
 ---
